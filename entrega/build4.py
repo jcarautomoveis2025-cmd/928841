@@ -31,7 +31,7 @@ mp=sorted(G.glob(M+"p*.mkv"))
 for p in mp:
     d=float(subprocess.run(["ffprobe","-v","error","-select_streams","v","-count_frames","-show_entries","stream=nb_read_frames","-of","csv=p=0",p],capture_output=True,text=True).stdout.strip().strip(","))/30
     parts.append(p); last=d; T+=d
-total=T; c=total-last+15.55
+total=T; c=total-last+15.9
 open(S+"l.txt","w").write("".join(f"file '{p}'\n" for p in parts))
 run(["ffmpeg","-y","-f","concat","-safe","0","-i",S+"l.txt","-c","copy",S+"full.mkv"])
 def ts(x): return f"{int(x//3600)}:{int(x%3600//60):02d}:{x%60:05.2f}"
